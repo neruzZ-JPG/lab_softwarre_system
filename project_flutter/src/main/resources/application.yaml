@@ -1,0 +1,14 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    encoding: utf-8
+    check-template-location: true
+  datasource:
+    username: root
+    password: wdsrs20011116
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/flutter_database_course?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+server:
+  port: 8081
