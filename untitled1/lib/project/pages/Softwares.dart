@@ -49,14 +49,29 @@ class _softwarePageState extends State<SoftwarePage> {
         });
       });
     }
-    return GridView.builder(
-      itemCount: softwares.length,
-      itemBuilder: this._getData,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 2.0,
-        crossAxisCount: 1,
-        crossAxisSpacing: 10.0, //水平距离
-        mainAxisSpacing: 20.0, //上下距离
+    return Scaffold(
+      body: Column(
+        children: [
+          RaisedButton(
+              color: Colors.orangeAccent,
+              child:Text("刷新")
+              ,onPressed: () {
+            setState(() {
+              got = 0;
+            });
+          }),
+          Expanded(child: GridView.builder(
+            itemCount: softwares.length,
+            itemBuilder: this._getData,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 2.0,
+              crossAxisCount: 1,
+              crossAxisSpacing: 10.0, //水平距离
+              mainAxisSpacing: 20.0, //上下距离
+            ),
+          )
+          )
+        ],
       ),
     );
   }

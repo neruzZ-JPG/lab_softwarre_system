@@ -1,3 +1,5 @@
+import 'Department.dart';
+
 class User{
   int user_id;
   int department_id;
@@ -5,6 +7,7 @@ class User{
   String user_phone_number;
   int user_role;
   String user_name;
+  Department department;
 
   User({
     this.user_id,
@@ -24,5 +27,9 @@ class User{
         user_role: parsedJson["user_role"],
         user_name: parsedJson["user_name"]
     );
+  }
+
+  setDeparment(Department department){
+    this.department = department;
   }
 }

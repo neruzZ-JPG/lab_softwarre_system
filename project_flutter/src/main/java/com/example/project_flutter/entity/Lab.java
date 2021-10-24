@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class Lab {
     private long lab_id;
     private long location_id;
-    private long computer_id;
     private long user_id;
     private String lab_name;
     private int lab_hold;

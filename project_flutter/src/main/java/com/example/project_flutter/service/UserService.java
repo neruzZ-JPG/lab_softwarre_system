@@ -7,6 +7,9 @@ import com.example.project_flutter.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 西云研究所
  * @date 2021/10/18
@@ -29,5 +32,15 @@ public class UserService {
                 Result res = new Result(true, 200, null, userDb);
                 return JSON.toJSONString(res);
             }
+    }
+
+    public String getAllUsers(){
+        List<User> usersDb = userMapper.selectAllUsers();
+        List<User> users = new ArrayList<User>();
+        for(User user : usersDb){
+            user.setUser_password("???");
+        }
+        Result res = new Result(true, 200, null, usersDb);
+        return JSON.toJSONString(res);
     }
 }

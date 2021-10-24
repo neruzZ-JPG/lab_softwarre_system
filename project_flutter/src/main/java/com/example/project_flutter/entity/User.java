@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class User {
     private long user_id;
-    private long deprtment_id;
+    private long department_id;
     private String user_account;
     private String user_password;
     private String user_phone_number;
