@@ -18,4 +18,9 @@ public class MajorController {
     public String getMajorById(long major_id){
         return majorService.getMajorById(major_id);
     }
+
+    @GetMapping("/getAllMajors")
+    public String getAllMajors(){
+        return majorService.selectAllMajors();
+    }
 }

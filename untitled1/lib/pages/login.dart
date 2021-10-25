@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/project/common/HttpUtil.dart';
-import 'package:untitled1/project/entity/User.dart';
+import 'package:untitled1/common/HttpUtil.dart';
+import 'package:untitled1/entity/User.dart';
+
 import '../main.dart';
 import '../utils/Request.dart';
 import '../tab/Tabs.dart';
@@ -24,11 +25,11 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('输入和选择'),
+        title: Text('实验室软件管理系统'),
       ),
       body: Column(
-        children: <Widget>[
-          Text(user.user_name),
+        children: [
+          //Text(user.user_name),
           TextField(
             controller: phoneController,
             keyboardType: TextInputType.number,
@@ -36,7 +37,7 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
               contentPadding: EdgeInsets.all(10.0),
               icon: Icon(Icons.phone),
               labelText: '请输入你的用户名)',
-              helperText: '请输入注册的手机号',
+              //helperText: '请输入注册的密码',
             ),
             autofocus: false,
           ),
@@ -50,6 +51,7 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
               ),
               obscureText: true),
           RaisedButton(
+            color: Colors.indigo,
             onPressed: _login,
             child: Text('登录'),
           ),
@@ -64,38 +66,39 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('请填写密码'),
-          ));
+                title: Text('请填写密码'),
+              ));
     } else {
       final ip = HttpUtil.ip;
       final port = HttpUtil.port;
       // 1.构建URL
       final movieURL = "http://$ip:$port/login";
-      Map<String, String> params = {"account": phoneController.text, "password": passController.text};
+      Map<String, String> params = {
+        "account": phoneController.text,
+        "password": passController.text
+      };
       // 2.发送网络请求获取结果
-      Request.getData(movieURL, (data){
+      Request.getData(movieURL, (data) {
         print("$data");
         setState(() {
           //先执行
           result = data["success"];
           print("result:$result");
-          if(result == false) {
+          if (result == false) {
             showDialog(
                 context: context,
-                builder: (context) =>
-                    AlertDialog(
+                builder: (context) => AlertDialog(
                       title: Text("用户名或密码错误"),
                     ));
             phoneController.clear();
-          }else{
+          } else {
             user = User.fromJson(data["data"]);
             print(user.user_name);
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context) => Tabs()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Tabs()));
           }
         });
       }, params: params);
-
     }
   }
 
@@ -106,4 +109,3 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
     });
   }
 }
-

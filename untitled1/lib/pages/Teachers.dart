@@ -1,10 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:untitled1/project/common/HttpUtil.dart';
-import 'package:untitled1/project/entity/Department.dart';
-import 'package:untitled1/project/entity/User.dart';
-import 'package:untitled1/project/utils/Request.dart';
+import 'package:untitled1/common/HttpUtil.dart';
+import 'package:untitled1/entity/Department.dart';
+import 'package:untitled1/entity/User.dart';
+import 'package:untitled1/utils/Request.dart';
+
 
 List<User> users = new List<User>();
 Map map = new HashMap();

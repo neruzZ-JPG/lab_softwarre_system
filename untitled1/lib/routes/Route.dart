@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:untitled1/project/pages/login.dart';
+import 'package:untitled1/pages/login.dart';
+
 import '../tab/Tabs.dart';
 
 final routes = {

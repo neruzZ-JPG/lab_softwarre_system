@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * @author 西云研究所
  * @date 2021/10/23
@@ -14,4 +16,7 @@ public interface MajorMapper {
 
     @Select("select * from major where major_id = #{major_id}")
     public Major selectMajorById(@Param("major_id") long major_id);
+
+    @Select("select * from major")
+    public List<Major> selectAllMajors();
 }

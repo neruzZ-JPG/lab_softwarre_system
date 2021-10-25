@@ -1,22 +1,23 @@
-import 'dart:io';
+
+
 
 import 'package:flutter/material.dart';
-import 'package:untitled1/project/common/HttpUtil.dart';
-import 'package:untitled1/project/entity/Course.dart';
-import 'package:untitled1/project/entity/Major.dart';
-import 'package:untitled1/project/utils/Request.dart';
+import 'package:untitled1/common/HttpUtil.dart';
+import 'package:untitled1/entity/Lab.dart';
+import 'package:untitled1/utils/Request.dart';
+import 'package:untitled1/entity/Location.dart';
 
-List <Course> courses = new List<Course>();
+List <Lab> labs = new List<Lab>();
 int got = 0;
 
-class CoursePage extends StatefulWidget {
-  CoursePage({Key key}) : super(key: key);
+class LabPage extends StatefulWidget {
+  LabPage({Key key}) : super(key: key);
 
   @override
-  _coursePageState createState() => _coursePageState();
+  _labPageState createState() => _labPageState();
 }
 
-class _coursePageState extends State<CoursePage> {
+class _labPageState extends State<LabPage> {
 
   Widget _getData(context, index) {
     // return Container(
@@ -29,10 +30,10 @@ class _coursePageState extends State<CoursePage> {
         child: Column(
           children: [
             ListTile(
-              title: Text(courses[index].course_name),
-              subtitle: Text(courses[index].major == null ? "null" : courses[index].major.major_name),
-              ),
-            ],
+              title: Text(labs[index].lab_name),
+              subtitle: Text(labs[index].location == null ? "null" : labs[index].location.location_building+labs[index].location.location_room),
+            ),
+          ],
         ));
   }
 
@@ -42,19 +43,20 @@ class _coursePageState extends State<CoursePage> {
     final ip = HttpUtil.ip;
     final port = HttpUtil.port;
     if(got == 0) {
-      Request.getData("http://$ip:$port/getAllCourses", (data) {
+      Request.getData("http://$ip:$port/getAllLabs", (data) {
         setState(() {
           var list = data['data'] as List;
-          courses = list.map((i) => Course.fromJson(i)).toList();
+          labs = list.map((i) => Lab.fromJson(i)).toList();
           got = 1;
-          print(courses);
-          for(Course course in courses){
-            Map<String, String>map = {"major_id":course.major_id.toString()};
-            Request.getData("http://$ip:$port/getMajorById",(data){
+          print(labs);
+          for(Lab lab in labs){
+            Map<String, String>map = {"location_id":lab.location_id.toString()};
+            Request.getData("http://$ip:$port/getLocationById",(data){
               setState(() {
-                Major major = Major.fromJson(data["data"]);
-                print(major.major_name);
-                course.major = major;
+                Location location = Location.fromJson(data["data"]);
+                print(location.location_building);
+                print(location.location_room);
+                lab.location = location;
               });
             }, params: map);
           }
@@ -74,10 +76,10 @@ class _coursePageState extends State<CoursePage> {
             });
           }),
           Expanded(child: GridView.builder(
-            itemCount: courses.length,
+            itemCount: labs.length,
             itemBuilder: this._getData,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 4.0,
+              childAspectRatio: 5.0,
               crossAxisCount: 1,
               crossAxisSpacing: 10.0, //水平距离
               mainAxisSpacing: 20.0, //上下距离

@@ -2,7 +2,8 @@ import 'dart:convert';
 //import 'dart:html';
 
 import 'package:dio/dio.dart';
-import 'package:untitled1/project/common/HttpUtil.dart';
+import 'package:untitled1/common/HttpUtil.dart';
+
 
 class Request{
   static void _request(String url, Function successCallback,

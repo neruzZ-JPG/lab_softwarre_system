@@ -1,5 +1,4 @@
-import 'package:untitled1/project/entity/Location.dart';
-
+import 'Location.dart';
 import 'User.dart';
 
 class Lab{

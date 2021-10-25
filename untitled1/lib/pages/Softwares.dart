@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/project/entity/Software.dart';
+import 'package:untitled1/entity/Software.dart';
+
 import '../utils/Request.dart';
 import '../common/HttpUtil.dart';
 
