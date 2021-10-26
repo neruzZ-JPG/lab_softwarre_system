@@ -6,7 +6,6 @@ import 'package:untitled1/entity/Department.dart';
 import 'package:untitled1/entity/User.dart';
 import 'package:untitled1/utils/Request.dart';
 
-
 List<User> users = new List<User>();
 Map map = new HashMap();
 int got = 0;
@@ -74,28 +73,29 @@ class _teacherPageState extends State<TeacherPage> {
       });
     }
     return Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       children: [
-        RaisedButton(
-          color: Colors.orangeAccent,
-            child:Text("刷新")
-            ,onPressed: () {
-          setState(() {
-            got = 0;
-          });
-        }),
+        FlatButton(
+            color: Colors.white,
+            child: Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {
+                got = 0;
+              });
+            }),
         Expanded(
             child: GridView.builder(
-              itemCount: users.length,
-              itemBuilder: this._getData,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 5.0,
-                crossAxisCount: 1,
-                crossAxisSpacing: 10.0, //水平距离
-                mainAxisSpacing: 20.0, //上下距离
-              ),
-            )),
+          itemCount: users.length,
+          itemBuilder: this._getData,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 5.0,
+            crossAxisCount: 1,
+            crossAxisSpacing: 10.0, //水平距离
+            mainAxisSpacing: 20.0, //上下距离
+          ),
+        )),
       ],
-    ));
+    )));
   }
 }

@@ -1,20 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:untitled1/common/HttpUtil.dart';
 import 'package:untitled1/entity/Lab.dart';
+import 'package:flutter/material.dart';
+import 'package:untitled1/tab/Tabs.dart';
 import 'package:untitled1/utils/Request.dart';
 import 'package:untitled1/entity/Location.dart';
+import '../../main.dart';
 
 List<Lab> labs = new List<Lab>();
 int got = 0;
 
-class LabPage extends StatefulWidget {
-  LabPage({Key key}) : super(key: key);
+class MyLabPage extends StatefulWidget {
+  MyLabPage({Key key}) : super(key: key);
 
   @override
   _labPageState createState() => _labPageState();
 }
 
-class _labPageState extends State<LabPage> {
+class _labPageState extends State<MyLabPage> {
   Widget _getData(context, index) {
     // return Container(
     //   child: Text(softwares[index].software_name),
@@ -41,7 +43,8 @@ class _labPageState extends State<LabPage> {
     final ip = HttpUtil.ip;
     final port = HttpUtil.port;
     if (got == 0) {
-      Request.getData("http://$ip:$port/getAllLabs", (data) {
+      Map<String, String> map = {"user_id": user.user_id.toString()};
+      Request.getData("http://$ip:$port/getLabByUserId", (data) {
         setState(() {
           var list = data['data'] as List;
           labs = list.map((i) => Lab.fromJson(i)).toList();
@@ -61,33 +64,45 @@ class _labPageState extends State<LabPage> {
             }, params: map);
           }
         });
-      });
+      }, params: map);
     }
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.teal,
+          leading: RaisedButton(
+            child: Text("<<<"),
+            color: Colors.teal,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return Tabs();
+              }));
+            },
+          ),
+        ),
         body: SingleChildScrollView(
-      child: Column(
-        children: [
-          FlatButton(
-              color: Colors.white,
-              child: Icon(Icons.refresh),
-              onPressed: () {
-                setState(() {
-                  got = 0;
-                });
-              }),
-          Expanded(
-              child: GridView.builder(
-            itemCount: labs.length,
-            itemBuilder: this._getData,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 5.0,
-              crossAxisCount: 1,
-              crossAxisSpacing: 10.0, //水平距离
-              mainAxisSpacing: 20.0, //上下距离
-            ),
-          ))
-        ],
-      ),
-    ));
+          child: Column(
+            children: [
+              FlatButton(
+                  color: Colors.white,
+                  child: Icon(Icons.refresh),
+                  onPressed: () {
+                    setState(() {
+                      got = 0;
+                    });
+                  }),
+              Expanded(
+                  child: GridView.builder(
+                itemCount: labs.length,
+                itemBuilder: this._getData,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 5.0,
+                  crossAxisCount: 1,
+                  crossAxisSpacing: 10.0, //水平距离
+                  mainAxisSpacing: 20.0, //上下距离
+                ),
+              ))
+            ],
+          ),
+        ));
   }
 }

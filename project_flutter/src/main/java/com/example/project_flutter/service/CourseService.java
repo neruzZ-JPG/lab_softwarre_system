@@ -80,4 +80,11 @@ public class CourseService {
         System.out.println(course_term);
         courseMapper.insertCourse(index+1, major_id, course_name, course_term, course_hours, course_class_hold, course_hold);
     }
+
+    public String getCoursesByUserId(long user_id){
+        List<Course> courses = courseMapper.selectCourseByUserId(user_id);
+        System.out.println(courses);
+        Result res = new Result(true, 200, null ,courses);
+        return JSON.toJSONString(res);
+    }
 }

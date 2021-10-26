@@ -24,4 +24,9 @@ public class LabService {
         return JSON.toJSONString(res);
     }
 
+    public String getLabByUserId(long user_id){
+        List<Lab> labs = labMapper.selectLabByUserId(user_id);
+        Result res = new Result(true, 200, null, labs);
+        return JSON.toJSONString(res);
+    }
 }

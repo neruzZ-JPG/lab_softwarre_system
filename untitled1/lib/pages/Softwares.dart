@@ -4,7 +4,7 @@ import 'package:untitled1/entity/Software.dart';
 import '../utils/Request.dart';
 import '../common/HttpUtil.dart';
 
-List <Software> softwares = new List<Software>();
+List<Software> softwares = new List<Software>();
 int got = 0;
 
 class SoftwarePage extends StatefulWidget {
@@ -15,7 +15,6 @@ class SoftwarePage extends StatefulWidget {
 }
 
 class _softwarePageState extends State<SoftwarePage> {
-
   Widget _getData(context, index) {
     // return Container(
     //   child: Text(softwares[index].software_name),
@@ -27,19 +26,21 @@ class _softwarePageState extends State<SoftwarePage> {
         child: Column(
           children: [
             ListTile(
-                title: Text(softwares[index].software_name),
-                subtitle: Text(softwares[index].catogory_id.toString()),
-                trailing: Text(softwares[index].software_need == null ? "null" : softwares[index].software_need),
-            )],
+              title: Text(softwares[index].software_name),
+              subtitle: Text(softwares[index].catogory_id.toString()),
+              trailing: Text(softwares[index].software_need == null
+                  ? "null"
+                  : softwares[index].software_need),
+            )
+          ],
         ));
   }
 
   @override
   Widget build(BuildContext context) {
-
     final ip = HttpUtil.ip;
     final port = HttpUtil.port;
-    if(got == 0) {
+    if (got == 0) {
       Request.getData("http://$ip:$port/getAllSoftwares", (data) {
         setState(() {
           var list = data['data'] as List;
@@ -51,17 +52,19 @@ class _softwarePageState extends State<SoftwarePage> {
       });
     }
     return Scaffold(
-      body: Column(
+        body: SingleChildScrollView(
+      child: Column(
         children: [
-          RaisedButton(
-              color: Colors.orangeAccent,
-              child:Text("刷新")
-              ,onPressed: () {
-            setState(() {
-              got = 0;
-            });
-          }),
-          Expanded(child: GridView.builder(
+          FlatButton(
+              color: Colors.white,
+              child: Icon(Icons.refresh),
+              onPressed: () {
+                setState(() {
+                  got = 0;
+                });
+              }),
+          Expanded(
+              child: GridView.builder(
             itemCount: softwares.length,
             itemBuilder: this._getData,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -70,10 +73,9 @@ class _softwarePageState extends State<SoftwarePage> {
               crossAxisSpacing: 10.0, //水平距离
               mainAxisSpacing: 20.0, //上下距离
             ),
-          )
-          )
+          ))
         ],
       ),
-    );
+    ));
   }
 }

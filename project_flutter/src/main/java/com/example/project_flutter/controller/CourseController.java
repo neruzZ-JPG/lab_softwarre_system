@@ -1,5 +1,6 @@
 package com.example.project_flutter.controller;
 
+import com.example.project_flutter.entity.Course;
 import com.example.project_flutter.service.CourseService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author 西云研究所
@@ -60,5 +63,10 @@ public class CourseController {
                           @Param("course_hold")int course_hold)
     {
         courseService.addCourse(major_id, course_name, course_term, course_hours, course_class_hold, course_hold);
+    }
+
+    @GetMapping("/getCoursesByUserId")
+    public String getCourseByUserId(long user_id){
+        return courseService.getCoursesByUserId(user_id);
     }
 }

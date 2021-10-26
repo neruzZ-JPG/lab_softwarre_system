@@ -11,4 +11,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/flutter_database_course?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
 server:
-  port: 8081
+  port: 8082

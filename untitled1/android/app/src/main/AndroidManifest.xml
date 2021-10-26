@@ -7,8 +7,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="untitled1"
-        android:icon="@mipmap/ic_launcher">
+        android:label="实验室软件管理"
+        android:icon="@mipmap/heartless">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

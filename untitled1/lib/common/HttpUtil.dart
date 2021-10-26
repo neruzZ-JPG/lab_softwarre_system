@@ -5,13 +5,15 @@ class HttpUtil{
   static String GET = "get";
   static String POST = "post";
     //服务器
-  //static String ip = "120.79.133.221";
+  static String ip = "120.79.133.221";
     //本机
-  static String ip = "10.0.2.2";
+  //static String ip = "10.0.2.2";
     //服务器
-  //static String port = "8082";
+  static String port = "8082";
     //本机
-  static String port = "8081";
+  //static String port = "8081";
   static int role_admin = 0;
   static int role_user = 1;
+  static int allQuery = 0;
+  static int userQuery = 1;
 }

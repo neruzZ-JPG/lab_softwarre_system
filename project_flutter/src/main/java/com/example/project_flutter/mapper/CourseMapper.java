@@ -51,4 +51,9 @@ public interface CourseMapper {
 
     @Select("select software_id from course_need_software where course_id = #{course_id}")
     public List<Integer> selectSoftwaresByCourseId(@Param("course_id")long course_id);
+
+    @Select("select * from course, user_course " +
+            "where course.course_id = user_course.course_id " +
+            "and user_course.user_id = #{user_id}")
+    public List<Course> selectCourseByUserId(@Param("user_id")long user_id);
 }

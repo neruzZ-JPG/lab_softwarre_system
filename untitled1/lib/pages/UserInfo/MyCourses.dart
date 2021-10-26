@@ -1,24 +1,23 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:untitled1/common/HttpUtil.dart';
 import 'package:untitled1/entity/Course.dart';
 import 'package:untitled1/entity/Major.dart';
 import 'package:untitled1/pages/subPages/CourseDetailPage.dart';
 import 'package:untitled1/pages/subPages/addCourse.dart';
+import 'package:untitled1/tab/Tabs.dart';
 import 'package:untitled1/utils/Request.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 List<Course> courses = new List<Course>();
 int got = 0;
 final ip = HttpUtil.ip;
 final port = HttpUtil.port;
 
-class CoursePage extends StatefulWidget {
+class MyCoursePage extends StatefulWidget {
   //CoursePage({Key key}) : super(key: key);
 
-  CoursePage(int refresh) {
+  MyCoursePage(int refresh) {
     got = refresh;
   }
 
@@ -26,7 +25,7 @@ class CoursePage extends StatefulWidget {
   _coursePageState createState() => _coursePageState();
 }
 
-class _coursePageState extends State<CoursePage> {
+class _coursePageState extends State<MyCoursePage> {
   Widget _getData(context, index) {
     // return Container(
     //   child: Text(softwares[index].software_name),
@@ -48,7 +47,7 @@ class _coursePageState extends State<CoursePage> {
               children: [
                 RaisedButton(
                     child: Text("详情"),
-                    color: Colors.limeAccent,
+                    color: Colors.white24,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -56,24 +55,6 @@ class _coursePageState extends State<CoursePage> {
                               builder: (context) =>
                                   CourseDetailPage(courses[index], 0)));
                     }),
-                user.user_role == HttpUtil.role_admin
-                    ? RaisedButton(
-                        color: Colors.red,
-                        onPressed: () {
-                          Map<String, String> map = {
-                            "course_id": courses[index].course_id.toString()
-                          };
-                          Request.postData("http://$ip:$port/deleteCourseById",
-                              (data) {
-                            print(data.toString());
-                          }, params: map);
-                          setState(() {
-                            got = 0;
-                          });
-                        },
-                        child: Text("删除"),
-                      )
-                    : Container(),
               ],
             )
           ],
@@ -102,38 +83,27 @@ class _coursePageState extends State<CoursePage> {
   @override
   Widget build(BuildContext context) {
     if (got == 0) {
-      Request.getData("http://$ip:$port/getAllCourses", setData,
-          errorCallBack: () {
-        print("error sending");
-      });
+      Map<String, String> map = {"user_id": user.user_id.toString()};
+      Request.getData("http://$ip:$port/getCoursesByUserId", setData,
+          params: map);
     }
     return Scaffold(
-        floatingActionButton: new FloatingActionButton(
-          onPressed: user.user_role == HttpUtil.role_admin
-              ? () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddCoursePage()));
-                }
-              : () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text("只有管理员可以进行该操作~"),
-                          ));
-                },
-          child: new Text('添加'),
+        appBar: AppBar(
+          backgroundColor: Colors.brown,
+          centerTitle: true,
+          leading: RaisedButton(
+            child: Icon(Icons.chevron_left_rounded),
+            color: Colors.brown,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return Tabs();
+              }));
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              FlatButton(
-                  color: Colors.white,
-                  child: Icon(Icons.refresh),
-                  onPressed: () {
-                    setState(() {
-                      got = 0;
-                    });
-                  }),
               Expanded(
                   child: GridView.builder(
                 itemCount: courses.length,
