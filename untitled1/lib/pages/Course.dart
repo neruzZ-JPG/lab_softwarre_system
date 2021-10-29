@@ -108,45 +108,44 @@ class _coursePageState extends State<CoursePage> {
       });
     }
     return Scaffold(
-        floatingActionButton: new FloatingActionButton(
-          onPressed: user.user_role == HttpUtil.role_admin
-              ? () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddCoursePage()));
-                }
-              : () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text("只有管理员可以进行该操作~"),
-                          ));
-                },
-          child: new Text('添加'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              FlatButton(
-                  color: Colors.white,
-                  child: Icon(Icons.refresh),
-                  onPressed: () {
-                    setState(() {
-                      got = 0;
-                    });
-                  }),
-              Expanded(
-                  child: GridView.builder(
-                itemCount: courses.length,
-                itemBuilder: this._getData,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 3.0,
-                  crossAxisCount: 1,
-                  crossAxisSpacing: 10.0, //水平距离
-                  mainAxisSpacing: 20.0, //上下距离
-                ),
-              ))
-            ],
-          ),
-        ));
+      floatingActionButton: new FloatingActionButton(
+        onPressed: user.user_role == HttpUtil.role_admin
+            ? () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddCoursePage()));
+              }
+            : () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text("只有管理员可以进行该操作~"),
+                        ));
+              },
+        child: new Text('添加'),
+      ),
+      body: Column(
+        children: [
+          FlatButton(
+              color: Colors.white,
+              child: Icon(Icons.refresh),
+              onPressed: () {
+                setState(() {
+                  got = 0;
+                });
+              }),
+          Expanded(
+              child: GridView.builder(
+            itemCount: courses.length,
+            itemBuilder: this._getData,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 2.5,
+              crossAxisCount: 1,
+              crossAxisSpacing: 10.0, //水平距离
+              mainAxisSpacing: 20.0, //上下距离
+            ),
+          ))
+        ],
+      ),
+    );
   }
 }

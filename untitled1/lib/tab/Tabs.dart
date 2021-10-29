@@ -18,7 +18,7 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
-  List pageList = [CoursePage(0), LabPage(), SoftwarePage(), TeacherPage()];
+  List pageList = [CoursePage(0), LabPage(0), SoftwarePage(0), TeacherPage(0)];
   int current_index = 0;
 
   Widget getTitle() {
@@ -46,8 +46,9 @@ class _TabsState extends State<Tabs> {
         UserAccountsDrawerHeader(
             accountName: Text(user.user_name),
             currentAccountPicture: CircleAvatar(
+              //backgroundColor: Colors.black,
               backgroundImage: NetworkImage(
-                  'https://bkimg.cdn.bcebos.com/pic/fc1f4134970a304eff144024d6c8a786c9175c3e?x-bce-process=image/resize,m_lfit,w_536,limit_1/format,f_jpg'),
+                  'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F10670611557%2F1000.jpg&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1637907936&t=77637c4b94bea2483cd6806f19553c29'),
             ),
             accountEmail: Text(user.user_phone_number)),
         ListTile(
@@ -56,7 +57,7 @@ class _TabsState extends State<Tabs> {
           ),
           title: Text('我的信息'),
           onTap: () {
-            Navigator.of(context).pop();
+            //Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return UserDetailPage(user, 0);
             }));
@@ -69,9 +70,9 @@ class _TabsState extends State<Tabs> {
           ),
           title: Text('实验室管理'),
           onTap: () {
-            Navigator.of(context).pop();
+            //Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return MyLabPage();
+              return MyLabPage(0);
             }));
           },
         ),
@@ -82,7 +83,7 @@ class _TabsState extends State<Tabs> {
           ),
           title: Text('课程管理'),
           onTap: () {
-            Navigator.of(context).pop();
+            //Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return MyCoursePage(0);
             }));
@@ -94,6 +95,7 @@ class _TabsState extends State<Tabs> {
 
   @override
   Widget build(BuildContext context) {
+    //Navigator.pop(context);
     return Container(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,

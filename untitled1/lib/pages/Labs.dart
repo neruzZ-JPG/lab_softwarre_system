@@ -8,7 +8,9 @@ List<Lab> labs = new List<Lab>();
 int got = 0;
 
 class LabPage extends StatefulWidget {
-  LabPage({Key key}) : super(key: key);
+  LabPage(int referesh){
+    got = referesh;
+  }
 
   @override
   _labPageState createState() => _labPageState();
@@ -64,8 +66,7 @@ class _labPageState extends State<LabPage> {
       });
     }
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
+      body: Column(
         children: [
           FlatButton(
               color: Colors.white,
@@ -80,7 +81,7 @@ class _labPageState extends State<LabPage> {
             itemCount: labs.length,
             itemBuilder: this._getData,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 5.0,
+              childAspectRatio: 2.5,
               crossAxisCount: 1,
               crossAxisSpacing: 10.0, //水平距离
               mainAxisSpacing: 20.0, //上下距离
@@ -88,6 +89,6 @@ class _labPageState extends State<LabPage> {
           ))
         ],
       ),
-    ));
+    );
   }
 }

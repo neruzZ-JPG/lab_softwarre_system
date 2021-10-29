@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:untitled1/common/HttpUtil.dart';
 import 'package:untitled1/entity/User.dart';
@@ -25,6 +27,14 @@ class TextFieldAndCheckPageState extends State<TextFieldAndCheckPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
+        leading: FlatButton(
+          child: Text('X'),
+          color: Colors.indigoAccent,
+          onPressed: (){
+            exit(0);
+          },
+        ),
         title: Text('实验室软件管理系统'),
       ),
       body: Column(

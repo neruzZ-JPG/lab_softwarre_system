@@ -11,7 +11,9 @@ Map map = new HashMap();
 int got = 0;
 
 class TeacherPage extends StatefulWidget {
-  TeacherPage({Key key}) : super(key: key);
+  TeacherPage(int refresh){
+    got = refresh;
+  }
 
   @override
   _teacherPageState createState() => _teacherPageState();
@@ -73,8 +75,7 @@ class _teacherPageState extends State<TeacherPage> {
       });
     }
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Column(
+        body: Column(
       children: [
         FlatButton(
             color: Colors.white,
@@ -89,13 +90,13 @@ class _teacherPageState extends State<TeacherPage> {
           itemCount: users.length,
           itemBuilder: this._getData,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 5.0,
+            childAspectRatio: 2.5,
             crossAxisCount: 1,
             crossAxisSpacing: 10.0, //水平距离
             mainAxisSpacing: 20.0, //上下距离
           ),
         )),
       ],
-    )));
+    ));
   }
 }

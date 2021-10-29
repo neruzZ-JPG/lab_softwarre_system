@@ -51,14 +51,14 @@ class _UserDetailState extends State<UserDetailPage> {
               child: Text("<<<"),
               color: Colors.deepOrangeAccent,
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return Tabs();
-                }));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (context) {
+                //   return Tabs();
+                // }));
+                Navigator.pop(context);
               }),
         ),
-        body: SingleChildScrollView(
-            child: Column(
+        body: Column(
           children: [
             Container(
                 padding: EdgeInsets.all(16),
@@ -66,7 +66,7 @@ class _UserDetailState extends State<UserDetailPage> {
                   child: table,
                 )),
           ],
-        )));
+        ));
   }
 }
 

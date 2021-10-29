@@ -8,7 +8,9 @@ List<Software> softwares = new List<Software>();
 int got = 0;
 
 class SoftwarePage extends StatefulWidget {
-  SoftwarePage({Key key}) : super(key: key);
+  SoftwarePage(int refresh){
+    got = refresh;
+  }
 
   @override
   _softwarePageState createState() => _softwarePageState();
@@ -52,8 +54,7 @@ class _softwarePageState extends State<SoftwarePage> {
       });
     }
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
+      body: Column(
         children: [
           FlatButton(
               color: Colors.white,
@@ -68,7 +69,7 @@ class _softwarePageState extends State<SoftwarePage> {
             itemCount: softwares.length,
             itemBuilder: this._getData,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 2.0,
+              childAspectRatio: 2.5,
               crossAxisCount: 1,
               crossAxisSpacing: 10.0, //水平距离
               mainAxisSpacing: 20.0, //上下距离
@@ -76,6 +77,6 @@ class _softwarePageState extends State<SoftwarePage> {
           ))
         ],
       ),
-    ));
+    );
   }
 }

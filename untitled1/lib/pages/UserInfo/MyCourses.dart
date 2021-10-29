@@ -67,6 +67,13 @@ class _coursePageState extends State<MyCoursePage> {
       courses = list.map((i) => Course.fromJson(i)).toList();
       got = 1;
       print(courses);
+      if(courses.isEmpty){
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text("当前无授课课程ye~"),
+            ));
+      }
       for (Course course in courses) {
         Map<String, String> map = {"major_id": course.major_id.toString()};
         Request.getData("http://$ip:$port/getMajorById", (data) {
@@ -88,35 +95,36 @@ class _coursePageState extends State<MyCoursePage> {
           params: map);
     }
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.brown,
-          centerTitle: true,
-          leading: RaisedButton(
-            child: Icon(Icons.chevron_left_rounded),
-            color: Colors.brown,
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return Tabs();
-              }));
-            },
-          ),
+      appBar: AppBar(
+        title: Text("我的课程"),
+        backgroundColor: Colors.brown,
+        centerTitle: true,
+        leading: RaisedButton(
+          child: Icon(Icons.chevron_left_rounded),
+          color: Colors.brown,
+          onPressed: () {
+            // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            //   return Tabs();
+            // }));
+            Navigator.pop(context);
+          },
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Expanded(
-                  child: GridView.builder(
-                itemCount: courses.length,
-                itemBuilder: this._getData,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 3.0,
-                  crossAxisCount: 1,
-                  crossAxisSpacing: 10.0, //水平距离
-                  mainAxisSpacing: 20.0, //上下距离
-                ),
-              ))
-            ],
-          ),
-        ));
+      ),
+      body: Column(
+        children: [
+          Expanded(
+              child: GridView.builder(
+            itemCount: courses.length,
+            itemBuilder: this._getData,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 2.5,
+              crossAxisCount: 1,
+              crossAxisSpacing: 10.0, //水平距离
+              mainAxisSpacing: 20.0, //上下距离
+            ),
+          ))
+        ],
+      ),
+    );
   }
 }

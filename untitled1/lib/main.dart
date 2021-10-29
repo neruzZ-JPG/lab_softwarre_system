@@ -23,10 +23,10 @@ class myApp extends StatelessWidget {
       home: TextFieldAndCheckPage(),
         routes:{
           '/login' : (context) => TextFieldAndCheckPage(),
-          '/labs' : (context) => LabPage(),
+          '/labs' : (context) => LabPage(0),
           '/courses' : (context) => CoursePage(0),
-          '/softwares' : (context) => SoftwarePage(),
-          '/teachers' : (context) => TeacherPage(),
+          '/softwares' : (context) => SoftwarePage(0),
+          '/teachers' : (context) => TeacherPage(0),
           '/tab' : (context) => Tabs(),
         },
     );
